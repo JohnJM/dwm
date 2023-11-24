@@ -1301,14 +1301,14 @@ resizeclient(Client *c, int x, int y, int w, int h)
 		gapincr = gapoffset = 0;
 	} else {
 		/* Remove border and gap if layout is monocle or only one client */
-		if (c->mon->lt[c->mon->sellt]->arrange == monocle || n == 1) {
-			gapoffset = 0;
-			gapincr = -2 * borderpx;
-			wc.border_width = 0;
-		} else {
+		// if (c->mon->lt[c->mon->sellt]->arrange == monocle || n == 1) {
+			// gapoffset = 0;
+			// gapincr = -2 * borderpx;
+			// wc.border_width = 0;
+		// } else {
 			gapoffset = gappx;
 			gapincr = 2 * gappx;
-		}
+		// }
 	}
 
 	c->oldx = c->x; c->x = wc.x = x + gapoffset;
@@ -1725,7 +1725,7 @@ tile(Monitor *m)
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx, m->wy + my, mw - (2*c->bw) + (n > 1 ? gappx : 0), h - (2*c->bw), 0);
+			resize(c, m->wx, m->wy + my, mw - (2*c->bw) + (gappx), h - (2*c->bw), 0);
 			if (my + HEIGHT(c) < m->wh)
 				my += HEIGHT(c);
 		} else {
