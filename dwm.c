@@ -1838,6 +1838,7 @@ tile(Monitor *m)
 		}
 }
 
+
 void
 togglebar(const Arg *arg)
 {
