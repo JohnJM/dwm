@@ -10,13 +10,12 @@
 dwm_weather() {
     LOCATION=edinburgh
 
-    if [ "$IDENTIFIER" = "unicode" ]; then
-        DATA=$(curl -s wttr.in/$LOCATION?format=3)
-        export __DWM_BAR_WEATHER__="${SEP1} ${DATA} ${SEP2}" 
-    else
-        DATA=$(curl -s wttr.in/$LOCATION?format=3 | grep -o ".[0-9].*")
-        export __DWM_BAR_WEATHER__="${SEP1} WEA ${DATA} ${SEP2}"
-    fi
+    DATA=$(curl -s wttr.in/$LOCATION?format=1 | sed 's/[[:space:]]*$//') # Remove trailing whitespace
+
+    DATA=$(echo "$DATA" | sed 's/^\(.\)\(..\)\(..\)\(..\)/\1\4/')
+    DATA=$(echo "$DATA" | sed 's/^\(.\)\(.*\)/\2 \1/')
+
+    export __DWM_BAR_WEATHER__=" | ${DATA}" 
 }
 
 dwm_weather
