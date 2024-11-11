@@ -60,7 +60,9 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod1Mask //alt
+#define WINDOWSKEY Mod4Mask //windows key
+
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -79,10 +81,11 @@ static const char *scrotcmd[] = { "scrot", "-s", NULL };
 
 static const Key keys[] = {
     /* modifier                      key        function        argument */
+    { WINDOWSKEY,                    XK_l,      spawn,          SHCMD("slock") },
     { MODKEY,                        XK_Print,  spawn,          {.v = scrotcmd } },
     { MODKEY | ControlMask,          XK_s,      spawn,          SHCMD("strawberry -t") },
-    { MODKEY | ControlMask,          XK_Up,     spawn,          SHCMD("amixer -D pipewire sset Master 8%+") },
-    { MODKEY | ControlMask,          XK_Down,   spawn,          SHCMD("amixer -D pipewire sset Master 8%-") },
+    { MODKEY | ControlMask,          XK_Up,     spawn,          SHCMD("amixer -D pipewire sset Master 4%+") },
+    { MODKEY | ControlMask,          XK_Down,   spawn,          SHCMD("amixer -D pipewire sset Master 4%-") },
     { MODKEY | ControlMask,          XK_Right,  spawn,          SHCMD("strawberry -f") },
     { MODKEY | ControlMask,          XK_Left,   spawn,          SHCMD("strawberry -r") },
     { MODKEY,                        XK_g,      spawn,          SHCMD("~/dev/pinyin.sh") },

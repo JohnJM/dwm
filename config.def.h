@@ -60,7 +60,9 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod1Mask //alt
+#define MODKEY2 Mod4Mask //windows key
+
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -79,6 +81,7 @@ static const char *scrotcmd[] = { "scrot", "-s", NULL };
 
 static const Key keys[] = {
     /* modifier                      key        function        argument */
+    { MODKEY2,                       XK_l,      spawn,          {.v = slock } },
     { MODKEY,                        XK_Print,  spawn,          {.v = scrotcmd } },
     { MODKEY | ControlMask,          XK_s,      spawn,          SHCMD("strawberry -t") },
     { MODKEY | ControlMask,          XK_Up,     spawn,          SHCMD("amixer -D pipewire sset Master 8%+") },
