@@ -20,14 +20,23 @@ static const char col_gray2[] = "#444444";
 static const char col_gray3[] = "#bbbbbb";
 static const char col_gray4[] = "#eeeeee";
 static const char col_cyan[] = "#16453e";
+
+static const char col_dark[] = "#32302f";
+static const char col_light[] = "#ebdbb2";
+static const char col_accent_active[] = "#d3869b";
+static const char col_accent_norm[] = "#a89984";
+
+
+
+
 static const char *colors[][3] = {
     /*               fg         bg         border   */
-    [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-    [SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
+    [SchemeNorm] = { col_light, col_dark, col_accent_norm },
+    [SchemeSel]  = { col_dark, col_accent_norm,  col_accent_active },
 };
 
 /* tagging */
-static const char *tags[] = {"〇", "一", "二", "三", "四", "五", "六"};
+static const char *tags[] = {"一", "二", "三", "四", "五", "六", "七", "八"};
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -75,20 +84,35 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2]       = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb",  col_gray1, "-nf",  col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb",  col_dark, "-nf",  col_light, "-sb", col_accent_active, "-sf", col_dark, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *scrotcmd[] = { "scrot", "-s", NULL };
+static const char *obsidian[] = { "obsidian", NULL };
+static const char *anki[]     = { "anki", NULL };
+static const char *librewolf[]     = { "librewolf", NULL };
+static const char *overskride[]     = { "overskride", NULL };
+static const char *signalapp[]      = { "signal-desktop", NULL };
+static const char *discord[]     = { "discord", NULL };
+
 
 static const Key keys[] = {
     /* modifier                      key        function        argument */
     { WINDOWSKEY,                    XK_l,      spawn,          SHCMD("slock") },
     { MODKEY,                        XK_Print,  spawn,          {.v = scrotcmd } },
+    { MODKEY | ControlMask,          XK_o,      spawn,          {.v = obsidian } },
+    { MODKEY,                        XK_o,      spawn,          {.v = anki } },
+    { MODKEY,                        XK_w,      spawn,          {.v = librewolf } },
+    { MODKEY,                        XK_e,      spawn,          {.v = overskride } },
+    { MODKEY | ShiftMask,            XK_a,      spawn,          {.v = signalapp } },
+    { MODKEY | ControlMask,          XK_a,      spawn,          {.v = discord } },
     { MODKEY | ControlMask,          XK_s,      spawn,          SHCMD("strawberry -t") },
     { MODKEY | ControlMask,          XK_Up,     spawn,          SHCMD("amixer -D pipewire sset Master 4%+") },
     { MODKEY | ControlMask,          XK_Down,   spawn,          SHCMD("amixer -D pipewire sset Master 4%-") },
     { MODKEY | ControlMask,          XK_Right,  spawn,          SHCMD("strawberry -f") },
     { MODKEY | ControlMask,          XK_Left,   spawn,          SHCMD("strawberry -r") },
     { MODKEY,                        XK_g,      spawn,          SHCMD("~/dev/pinyin.sh") },
+    { MODKEY | ShiftMask,            XK_g,      spawn,          SHCMD("~/dev/ask_chatgpt.sh") },
+    { MODKEY | ControlMask,          XK_p,      spawn,          SHCMD("~/dev/mpvp.sh")},
     { MODKEY,                        XK_y,      togglesticky,   {0} },
     { MODKEY,                        XK_p,      spawn,          {.v = dmenucmd } },
     { MODKEY | ShiftMask,            XK_Return, spawn,          {.v = termcmd } },
